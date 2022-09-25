@@ -19,6 +19,17 @@ while optie != 6:
         return random.randint(1,500)
     my_random_agent = MyRandomAgent()
     start(player_o = my_random_agent)
+
+  if optie == 2:
+    from bke import EvaluationAgent, start, can_win
+    class MijnSpeler(EvaluationAgent):
+      def evaluate(self, board, my_symbol, opponent_symbol):
+        getal = 1
+        if can_win(board, opponent_symbol):
+          getal = getal - 1000
+        return getal
+    mijn_speler = MijnSpeler()
+    start(player_o = mijn_speler)
     
   else:
     print("Ongeldige keuze")
@@ -27,98 +38,3 @@ while optie != 6:
   optie = int(input("Kies een optie"))
   
 print ("Bedankt voor het opstarten van het spel en tot ziens!")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#import random
- 
-#from bke import MLAgent, is_winner, opponent, RandomAgent, train_and_plot
- 
- 
-#class MyAgent(MLAgent):
-    #def evaluate(self, board):
-       # if is_winner(board, self.symbol):
-       #     reward = 1
-        #elif is_winner(board, opponent[self.symbol]):
-          #  reward = -1
-        #else:
-        #    reward = 0
- #       return reward
-    
-    
-#random.seed(1)
- 
-#my_agent = MyAgent()
-#random_agent = RandomAgent()
- 
-#train_and_plot(
- #   agent=my_agent,
-  #  validation_agent=random_agent,
-   # iterations=25,
-    #trainings=50,
-    #validations=1000)
-# my_agent = MyAgent(alpha=0.2, epsilon=0.9)
