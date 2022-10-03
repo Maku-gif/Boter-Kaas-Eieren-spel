@@ -2,7 +2,7 @@ import random #optie 1
 from bke import EvaluationAgent, start, can_win #optie 1
 #from bke import EvaluationAgent, start, can_win #optie 2
 #from bke import start #optie 3
-from bke import MLAgent, is_winner, opponent, train, save, load, RandomAgent, validate, plot_validation #optie 4
+from bke import MLAgent, is_winner, opponent, train, save, load, RandomAgent, train_and_plot #optie 4
 #from bke import MLAgent, is_winner, opponent, train, load, start #optie 4
 #from bke import MLAgent, is_winner, opponent, load, validate, RandomAgent, plot_validation #optie 5
 
@@ -34,8 +34,8 @@ while optie != 6:
              getal = getal - 1000
           return getal
       mijn_speler = MijnSpeler()
-      start(player_o = mijn_speler)
-
+      start(player_x = mijn_speler)
+      
     if optie == 3:
       start()
 
@@ -52,7 +52,7 @@ while optie != 6:
       my_agent = MyAgent()
       train(my_agent, 3000)
       save(my_agent, 'MyAgent_3000')
-
+      
       class MyAgent(MLAgent):
         def evaluate(self, board):
           if is_winner(board, self.symbol):
@@ -75,13 +75,17 @@ while optie != 6:
           elif is_winner(board, opponent[self.symbol]):
               reward = -1
           else:
-              reward = 0
+            reward = 0
           return reward
-      my_agent = load('MyAgent_3000')
-      my_agent.learning = False
-      validation_agent = RandomAgent()
-      validation_result = validate(agent_x=my_agent, agent_o=validation_agent, iterations=100)
-      plot_validation(validation_result)
+      random.seed(1)
+      my_agent = MyAgent()
+      random_agent = RandomAgent()
+      train_and_plot(
+        agent=my_agent,
+        validation_agent=random_agent,
+        iterations=25,
+        trainings=100,
+        validations=1000)
   
     else:
       print("Ongeldige keuze")
@@ -89,3 +93,5 @@ while optie != 6:
     menu()
     optie = int(input("Kies een optie"))
 print("Bedankt voor het spelen en tot ziens!")
+
+
